@@ -148,8 +148,8 @@ export const Img = styled.img`
   }
     @media (max-width: 550px) {
     position:relative;
-    max-width: 280px;
-    max-height: 280px;
+        height:500px;
+        width:500px;
    }
     @media (max-width:1220px) {
     position:relative;
