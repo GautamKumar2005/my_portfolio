@@ -203,9 +203,6 @@ export const TextLoop = styled.div`
 export const Span = styled.span`
   color: ${({ theme }) => theme.primary};
   cursor: pointer;
-  @media (max-width: 1000px) {
-    display:block
-  }
 `;
 
 export const SubTitle = styled.div`
