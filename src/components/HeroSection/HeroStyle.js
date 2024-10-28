@@ -59,6 +59,8 @@ export const HeroInnerContainer = styled.div`
   @media (max-width: 550px) {
     position:relative;
     padding:5rem;
+    gap:-13rem;
+    max-height:6700px;
     
    }
      @media (max-width: 960px) {
@@ -66,6 +68,7 @@ export const HeroInnerContainer = styled.div`
     padding:5rem;
     
    }
+    
 `;
 export const HeroLeftContainer = styled.div`
   position:relative;
@@ -107,14 +110,16 @@ export const HeroRightContainer = styled.div`
     max-height:400px;
   }
     @media (max-width: 550px) {
-    position:relative;
-    left:5rem;
-    max-height:300px;
+     position:relative;
+     left:5rem;
+     max-height:600px !important;
    }
 
-  @media (max-width: 640px) {
+  @media (max-width: 640px) and(min-width-550px) {
+    position:relative;
     margin-bottom: 30px;
-    max-height:400px;
+    top:5rem !important;
+    max-height:200px !important;
   }
     @media (max-width: 640px) and (min-width: 550px) {
   position: relative;
@@ -124,7 +129,7 @@ export const HeroRightContainer = styled.div`
   position: relative;
   left: 6rem;
 }
-@media (max-width: 1220px) {
+   @media (max-width: 1220px) {
     max-height:900px;
     margin:-4rem !important;
     
@@ -142,6 +147,7 @@ export const Img = styled.img`
   // border-radius: 50%;
   // border: 2px solid ${({ theme }) => theme.primary};
 
+
   @media (max-width: 768px) {
     top:1rem;
     left:0rem;
@@ -149,19 +155,24 @@ export const Img = styled.img`
     max-height: 400px;
   }
 
-  @media (max-width: 640px) {
-    
-    max-width: 280px;
-    max-height: 280px;
+  @media (max-width: 640px) and (min-width:550px) {
+    position:relative;
+    top:0rem !important;
+    left:4rem;
+
+    max-width: 500px;
+    max-height: 500px;
   }
-    @media (max-width: 550px) {
+   @media (max-width: 550px) {
+    top:-4rem !important;
     height: 2000px !important;
     width:   2000px !important;
 }
+
     @media (max-width:1220px) {
     position:relative;
     left:-4rem;
-    top:1rem;
+    top:-6rem;
     max-width: 900px !important;
     max-height: 900px !important;
    }
