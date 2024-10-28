@@ -104,6 +104,7 @@ export const HeroRightContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 80px;
+    max-height:400px;
   }
     @media (max-width: 550px) {
     position:relative;
@@ -113,6 +114,7 @@ export const HeroRightContainer = styled.div`
 
   @media (max-width: 640px) {
     margin-bottom: 30px;
+    max-height:400px;
   }
     @media (max-width: 640px) and (min-width: 550px) {
   position: relative;
@@ -122,6 +124,11 @@ export const HeroRightContainer = styled.div`
   position: relative;
   left: 6rem;
 }
+@media (max-width: 1220px) {
+    max-height:900px;
+    margin:-4rem !important;
+    
+   }
 `;
 
 export const Img = styled.img`
@@ -154,9 +161,9 @@ export const Img = styled.img`
     @media (max-width:1220px) {
     position:relative;
     left:-4rem;
-    top:-3rem;
-    max-width: 580px;
-    max-height: 580px;
+    top:1rem;
+    max-width: 900px !important;
+    max-height: 900px !important;
    }
 `;
 
