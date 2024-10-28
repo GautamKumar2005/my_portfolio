@@ -108,6 +108,7 @@ export const HeroRightContainer = styled.div`
     @media (max-width: 550px) {
     position:relative;
     left:5rem;
+    max-height:300px;
    }
 
   @media (max-width: 640px) {
