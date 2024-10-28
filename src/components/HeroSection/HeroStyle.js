@@ -147,10 +147,9 @@ export const Img = styled.img`
     max-height: 280px;
   }
     @media (max-width: 550px) {
-    position:relative;
-        height:500px;
-        width:500px;
-   }
+    height: 2000px !important;
+    width:   2000px !important;
+}
     @media (max-width:1220px) {
     position:relative;
     left:-4rem;
