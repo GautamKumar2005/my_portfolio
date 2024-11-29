@@ -57,20 +57,73 @@ export const NavItems = styled.ul`
     }
 `;
 
+// export const NavLink = styled.a`
+//     color: ${({ theme }) => theme.text_primary};
+//     font-weight: 500;
+//     cursor: pointer;
+//     transition: all 0.2s ease-in-out;
+//     text-decoration: none;
+//     :hover {
+//       color: ${({ theme }) => theme.primary};
+//     }
+    
+//     &.active {
+//       border-bottom: 2px solid ${({ theme }) => theme.primary};
+//     }
+// `;
+
 export const NavLink = styled.a`
     color: ${({ theme }) => theme.text_primary};
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    :hover {
+    position: relative; // Necessary for positioning the pseudo-elements
+
+    &:hover {
       color: ${({ theme }) => theme.primary};
     }
 
     &.active {
       border-bottom: 2px solid ${({ theme }) => theme.primary};
     }
+
+    // Left underline
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: red;
+      transition: width 0.3s ease-in-out;
+    }
+
+    // Right underline
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: red;
+      transition: width 0.3s ease-in-out;
+    }
+
+    // On hover, expand both lines
+    &:hover::before {
+      width: 50%; // Left line expands to center
+    }
+
+    &:hover::after {
+      width: 50%; // Right line expands to center
+    }
 `;
+
+
+
 
 
 export const GitHubButton = styled.a`
@@ -154,19 +207,69 @@ export const MobileMenuItems = styled.ul`
   height: 100%;
 `
 
-export const MobileMenuLink = styled(LinkR)`
-  color: ${({ theme }) => theme.text_primary};
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-  :hover {
-    color: ${({ theme }) => theme.primary};
-  }
+// export const MobileMenuLink = styled(LinkR)`
+//   color: ${({ theme }) => theme.text_primary};
+//   font-weight: 500;
+//   cursor: pointer;
+//   transition: all 0.2s ease-in-out;
+//   text-decoration: none;
+//   :hover {
+//     color: ${({ theme }) => theme.primary};
+//   }
 
-  &.active {
-    border-bottom: 2px solid ${({ theme }) => theme.primary};
-  }
+//   &.active {
+//     border-bottom: 2px solid ${({ theme }) => theme.primary};
+//   }
+// `;
+
+export const MobileMenuLink = styled(LinkR)`
+    color: ${({ theme }) => theme.text_primary};
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    position: relative; // Necessary for positioning the pseudo-elements
+
+    &:hover {
+      color: ${({ theme }) => theme.primary};
+    }
+
+    &.active {
+      border-bottom: 2px solid ${({ theme }) => theme.primary};
+    }
+
+    // Left underline for mobile menu
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: red;
+      transition: width 0.3s ease-in-out;
+    }
+
+    // Right underline for mobile menu
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: red;
+      transition: width 0.3s ease-in-out;
+    }
+
+    // On hover, expand both lines
+    &:hover::before {
+      width: 50%; // Left line expands to center
+    }
+
+    &:hover::after {
+      width: 50%; // Right line expands to center
+    }
 `;
 
 export const MobileMenuButton = styled.a`
