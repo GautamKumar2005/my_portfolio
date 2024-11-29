@@ -147,7 +147,7 @@ export const Bio = {
       role: "Contributor",
       // company: "Rudraksha Welffare Foundation",
       date: "1st Oct 2024 - 30th Oct 2024 Extd 10 Nov",
-      desc: "As an Android Developer Intern at Rudraksha Welfare Foundation from June 2021 to October 2021, I gained valuable hands-on experience in application development. During my tenure, I contributed to the development of the application's back-end cloud functions using Firebase and implemented a front-end with the MVVM structure, which was designed using Figma. I also added a one-to-one video call feature, conceptualized new features, and optimized app performance. This internship helped me enhance my skills in Android development and gave me an opportunity to work in a collaborative team environment.",
+      desc: "I contributed to the GSSoC'24 Extd Postman API Challenge (Open Source) from October 1st to November 10th, where I focused on enhancing API documentation, optimizing Postman collections, and improving overall usability for developers. I implemented best practices for API testing, streamlined workflows, and ensured clear and concise documentation. In addition, I applied my MERN stack expertise by integrating and testing various APIs, ensuring seamless interaction between MongoDB, Express.js, React, and Node.js components. This experience strengthened my skills in backend API development, frontend integration, and full-stack workflows.",
       skills: [
         "ReactJS",
         "ExpressJS",
