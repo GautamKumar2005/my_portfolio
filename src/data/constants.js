@@ -10,11 +10,11 @@ export const Bio = {
       "I am a motivated and versatile individual, always eager to take on new challenges. With a passion for learning I am dedicated to delivering high-quality results. With a positive attitude and a growth mindset, I am ready to make a meaningful contribution and achieve great things.",
     github: "https://github.com/GautamKumar2005",
     resume:
-      "https://drive.google.com/sorry",
+      "https://drive.google.com/file/d/1NvXRHW6BjnbxVnnpx80IyS7-XWBe-mQR/view?usp=drivesdk",
     linkedin: "https://www.linkedin.com/in/gautam-kumar-489903281/",
     twitter: " https://x.com/GautamK38839851",
     insta: "https://www.instagram.com/er.gautam___01",
-    facebook: "https://www.facebook.com/I_am_sorry_i_had_not_uploaded_yet/",
+    facebook: "https://www.facebook.com/rishav.chanda.165/",
   };
   
   export const skills = [
@@ -141,25 +141,24 @@ export const Bio = {
   ];
   
   export const experiences = [
-    // {
-    //   id: 4,
-    //   img: "https://firebasestorage.googleapis.com/v0/b/flexi-coding.appspot.com/o/Rudraksha.jpeg?alt=media&token=8f83f41e-d0a1-486f-9c7f-dd4cd1d09e8d",
-    //   role: "Android Developer Intern",
-    //   company: "Rudraksha Welffare Foundation",
-    //   date: "June 2021 - Oct 2021",
-    //   desc: "As an Android Developer Intern at Rudraksha Welfare Foundation from June 2021 to October 2021, I gained valuable hands-on experience in application development. During my tenure, I contributed to the development of the application's back-end cloud functions using Firebase and implemented a front-end with the MVVM structure, which was designed using Figma. I also added a one-to-one video call feature, conceptualized new features, and optimized app performance. This internship helped me enhance my skills in Android development and gave me an opportunity to work in a collaborative team environment.",
-    //   skills: [
-    //     "Android",
-    //     "Java",
-    //     "Kotlin",
-    //     "XML",
-    //     "Node Js",
-    //     "Cloud Firestore",
-    //     "Firebase",
-    //     "Figma",
-    //   ],
-    //   doc: "https://firebasestorage.googleapis.com/v0/b/buckoid-917cf.appspot.com/o/WhatsApp%20Image%202023-05-05%20at%2012.07.39%20AM.jpeg?alt=media&token=9f0e1648-568b-422d-bd0b-1f125f722245",
-    // },
+    {
+      id: 4,
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYXEPbmg93iMH6bP5w7YpIIwQ1J62qBmICtQ&s",
+      role: "Contributor",
+      // company: "Rudraksha Welffare Foundation",
+      date: "1st Oct 2024 - 30th Oct 2024 Extd 10 Nov",
+      desc: "As an Android Developer Intern at Rudraksha Welfare Foundation from June 2021 to October 2021, I gained valuable hands-on experience in application development. During my tenure, I contributed to the development of the application's back-end cloud functions using Firebase and implemented a front-end with the MVVM structure, which was designed using Figma. I also added a one-to-one video call feature, conceptualized new features, and optimized app performance. This internship helped me enhance my skills in Android development and gave me an opportunity to work in a collaborative team environment.",
+      skills: [
+        "ReactJS",
+        "ExpressJS",
+        "Postman API",
+        "NodeJs",
+        "Cloud Firestore",
+        "Firebase",
+        "Web Socket",
+      ],
+      doc: "https://raw.githubusercontent.com/GautamKumar2005/my_portfolio/refs/heads/main/public/Gautam_Kumar_Badge_Contributor_GSSoC2024-Extd.png",
+    },
     {
         
     }
