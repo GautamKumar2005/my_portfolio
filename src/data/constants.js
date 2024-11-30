@@ -167,7 +167,7 @@ export const Bio = {
   export const education = [
     {
       id: 0,
-      img: "https://reg.exam.dtu.ac.in/logo.png",
+      img: "https://upload.wikimedia.org/wikipedia/en/b/b5/DTU%2C_Delhi_official_logo.png",
       school: "Delhi Technological University, New Delhi",
       date: "Aug 2023 - present",
       grade: "8.71 CGPA",
