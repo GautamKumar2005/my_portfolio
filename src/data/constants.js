@@ -10,7 +10,7 @@ export const Bio = {
       "I am a motivated and versatile individual, always eager to take on new challenges. With a passion for learning I am dedicated to delivering high-quality results. With a positive attitude and a growth mindset, I am ready to make a meaningful contribution and achieve great things.",
     github: "https://github.com/GautamKumar2005",
     resume:
-      "https://drive.google.com/file/d/1NvXRHW6BjnbxVnnpx80IyS7-XWBe-mQR/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1Rl3vZz93vtxT9_dcl3LmKpmJpSFv7jJB/view?usp=drivesdk",
     linkedin: "https://www.linkedin.com/in/gautam-kumar-489903281/",
     twitter: " https://x.com/GautamK38839851",
     insta: "https://www.instagram.com/er.gautam___01",
