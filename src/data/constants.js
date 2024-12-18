@@ -14,7 +14,7 @@ export const Bio = {
     linkedin: "https://www.linkedin.com/in/gautam-kumar-489903281/",
     twitter: " https://x.com/GautamK38839851",
     insta: "https://www.instagram.com/er.gautam___01",
-    facebook: "https://www.facebook.com/not-found",
+    facebook: "https://www.facebook.com/",
   };
   
   export const skills = [
