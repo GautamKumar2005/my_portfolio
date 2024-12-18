@@ -1,7 +1,7 @@
 export const Bio = {
     name: "Gautam Kumar",
     roles: [
-      "Full Stack Developer",
+      "MERN Stack Developer",
       "AI enthuasiast",
       "Completed DSA",
       "Programmer",
@@ -209,7 +209,7 @@ export const Bio = {
         "Node Js",
         "Express Js",
         "Redux",
-        "NodeMailer",
+        "WebSocket.io",
       ],
       category: "web app",
       github: "https://github.com/Gautamkumar2005/iNOtebook",
@@ -217,12 +217,12 @@ export const Bio = {
     },  
     {
       id: 8,
-      title: "BookStore",
+      title: "ChatServer",
       date: "Aug 2024 - present",
       description:
-        "A  web app designes as e-commerce website that we can purchase view and navigate books ",
+        "I built a real-time chat server using the MERN stack with Socket.IO for instant messaging and JWT for secure authentication, ensuring low-latency communication and a seamless user experience.",
       image:
-        "https://www.hiddentechies.com/media/catalog/product/cache/b3984240b1e60306428181db31ec529c/b/o/bookstore-magento-theme.jpg",
+        "https://www.five9.com/sites/default/files/styles/responsive_max/public/2024-05/chat_server.webp?itok=GgpnsIYt",
       // tags: ["Python", "Keras", "TensorFlow", "VGG16", "Pickle", "React"],
       category: "Web app",
       // github: "https://github.com/rishavchanda/Face-Recodnition-AI-with-Python",
@@ -232,6 +232,6 @@ export const Bio = {
   
   export const TimeLineData = [
     { year: 2023, text: "Started my journey" },
-    { year: 2024, text: "Completed DSA and Full stack " },
+    { year: 2024, text: "Completed DSA and MERN Stack " },
     { year: 2024, text: "Artificial Intelligence-Machine learning" },
   ];
