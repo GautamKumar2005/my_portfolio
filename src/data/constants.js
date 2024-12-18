@@ -230,7 +230,6 @@ export const Bio = {
         "Express Js",
         "Redux",
         "WebSocket.io",
-        "Jwt Token",
       ],
       category: "Web app",
       // github: "https://github.com/rishavchanda/Face-Recodnition-AI-with-Python",
