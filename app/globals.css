@@ -29,6 +29,19 @@ body {
   color: var(--foreground);
   background-attachment: fixed;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: rgba(0, 212, 255, 0.3);
+  color: #ffffff;
+}
+
+/* Base touch responsiveness */
+html, body {
+  touch-action: manipulation;
 }
 
 /* Scrollbar styling */

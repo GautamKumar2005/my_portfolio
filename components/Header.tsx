@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { LINKS } from "@/lib/constants";
@@ -85,47 +86,56 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu */}
-          {isOpen && (
-            <div className="md:hidden pb-4 border-t border-cyan-500/20">
-              <nav className="flex flex-col gap-3 pt-4">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="px-4 py-2 text-sm font-semibold text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-lg transition-colors duration-300"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-                <a
-                  href="#links"
-                  className="mx-4 mt-2 px-4 py-2 text-center text-sm font-bold bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/50 text-cyan-300 rounded-lg transition-all duration-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Let's Connect
-                </a>
-              </nav>
-              <div className="flex items-center gap-4 px-4 pt-4 border-t border-cyan-500/20 mt-4">
-                <a
-                  href={LINKS.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 hover:bg-cyan-500/20 rounded-lg"
-                >
-                  <FaGithub className="w-5 h-5" />
-                </a>
-                <a
-                  href={LINKS.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 hover:bg-cyan-500/20 rounded-lg"
-                >
-                  <FaLinkedin className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          )}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="md:hidden overflow-hidden border-t border-cyan-500/20"
+              >
+                <div className="pb-4">
+                  <nav className="flex flex-col gap-2 pt-4 px-2">
+                    {navItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-lg transition-colors duration-300"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                    <a
+                      href="#links"
+                      className="mx-4 mt-2 px-4 py-3 text-center text-sm font-bold bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/50 text-cyan-300 rounded-lg transition-all duration-300"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Let's Connect
+                    </a>
+                  </nav>
+                  <div className="flex items-center gap-4 px-6 pt-4 border-t border-cyan-500/20 mt-4">
+                    <a
+                      href={LINKS.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 hover:bg-cyan-500/20 rounded-lg"
+                    >
+                      <FaGithub className="w-5 h-5" />
+                    </a>
+                    <a
+                      href={LINKS.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 hover:bg-cyan-500/20 rounded-lg"
+                    >
+                      <FaLinkedin className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </header>

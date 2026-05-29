@@ -31,10 +31,10 @@ export default function Hero() {
             <p className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">
               Welcome to my portfolio
             </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold">
-              <span className="gradient-text">{PROFILE.name}</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
+              <span className="gradient-text drop-shadow-[0_0_10px_rgba(0,212,255,0.3)]">{PROFILE.name}</span>
             </h1>
-            <p className="text-xl sm:text-2xl text-cyan-300 font-light">
+            <p className="text-lg sm:text-xl lg:text-2xl text-cyan-300 font-light px-2">
               {PROFILE.title}
             </p>
           </div>
@@ -50,10 +50,10 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 w-full max-w-md mx-auto sm:max-w-none">
             <a
               href="#projects"
-              className="group glass px-8 py-3 rounded-lg font-semibold text-white hover:bg-cyan-500/20 border border-cyan-400/50 hover:border-cyan-400 flex items-center justify-center gap-2"
+              className="group glass w-full sm:w-auto px-8 py-3 rounded-lg font-semibold text-white hover:bg-cyan-500/20 border border-cyan-400/50 hover:border-cyan-400 flex items-center justify-center gap-2 transition-all active:scale-95"
             >
               View My Work
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -62,7 +62,7 @@ export default function Hero() {
               href={LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass px-8 py-3 rounded-lg font-semibold text-white hover:bg-blue-500/20 border border-blue-400/50 hover:border-blue-400 flex items-center justify-center gap-2"
+              className="glass w-full sm:w-auto px-8 py-3 rounded-lg font-semibold text-white hover:bg-blue-500/20 border border-blue-400/50 hover:border-blue-400 flex items-center justify-center gap-2 transition-all active:scale-95"
             >
               <Code className="w-4 h-4" />
               GitHub

@@ -114,7 +114,7 @@ export default function Experience() {
                 <img
                   src="https://leetcard.jacoblin.cool/GautamKumar_code?theme=dark&font=Inter&ext=heatmap"
                   alt="LeetCode Stats & Heatmap"
-                  className="w-full h-auto object-cover"
+                  className="w-full max-w-full h-auto object-contain"
                 />
               </div>
             </motion.div>
@@ -132,7 +132,7 @@ export default function Experience() {
                 <img
                   src="https://codeforces-readme-stats.vercel.app/api/card?username=Galacti_&theme=dark"
                   alt="Codeforces Stats"
-                  className="w-full h-auto object-cover max-w-md"
+                  className="w-full max-w-full h-auto object-contain"
                 />
               </div>
             </motion.div>

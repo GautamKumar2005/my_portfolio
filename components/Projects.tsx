@@ -108,12 +108,12 @@ const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number })
       </div>
 
       {/* Links */}
-      <div className="flex gap-3 pt-4 border-t border-cyan-500/20 mt-auto">
+      <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-cyan-500/20 mt-auto">
         <a
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-300 text-sm font-medium transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-300 text-sm font-medium transition-colors active:scale-95"
         >
           <Code className="w-4 h-4" />
           Repository
@@ -123,7 +123,7 @@ const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number })
             href={displayHomepage}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 text-sm font-medium transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 text-sm font-medium transition-colors active:scale-95"
           >
             <ExternalLink className="w-4 h-4" />
             Live Demo
@@ -156,7 +156,7 @@ export default function Projects() {
               Projects
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
@@ -189,7 +189,7 @@ export default function Projects() {
 
         {/* Projects Grid */}
         {projects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
