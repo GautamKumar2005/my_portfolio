@@ -11,9 +11,10 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Skills & Expertise", href: "#skills" },
-    { label: "Featured Projects", href: "#projects" },
-    { label: "Education & CP", href: "#experience" },
+    { label: "Skills & Expertise", href: "/#skills" },
+    { label: "Featured Projects", href: "/#projects" },
+    { label: "Education & CP", href: "/#experience" },
+    { label: "Excercise", href: "/exercise" },
   ];
 
   return (
