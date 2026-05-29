@@ -29,13 +29,13 @@ const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number })
       className="group glass p-6 rounded-lg border border-cyan-500/30 hover:border-cyan-400/60 hover:bg-cyan-500/5 transition-all duration-300 flex flex-col h-full"
     >
       {/* Header */}
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-1">
-            <h3 className="text-xl font-bold text-cyan-300 group-hover:text-cyan-200 transition-colors">
+      <div className="flex items-start justify-between mb-4 gap-4">
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <h3 className="text-xl font-bold text-cyan-300 group-hover:text-cyan-200 transition-colors break-words w-full sm:w-auto">
               {project.name}
             </h3>
-            <span className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold border border-slate-600 text-slate-400 rounded-full">
+            <span className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold border border-slate-600 text-slate-400 rounded-full whitespace-nowrap">
               Public
             </span>
           </div>
@@ -76,7 +76,7 @@ const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number })
       </div>
 
       {/* Description */}
-      <div className="text-slate-300 text-sm mb-4 flex-grow">
+      <div className="text-slate-300 text-sm mb-4 flex-grow min-w-0 break-words w-full">
         <p className="leading-relaxed">{shortDescription}</p>
         
         <AnimatePresence>
