@@ -88,6 +88,7 @@ function ParticleSystem() {
           count={150}
           array={positionArray}
           itemSize={3}
+          args={[positionArray, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
