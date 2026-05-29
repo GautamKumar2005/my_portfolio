@@ -26,7 +26,7 @@ export default function Header() {
               <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
                 <Code className="w-5 h-5 text-white" />
               </div>
-              <span className="hidden sm:inline font-bold text-lg gradient-text">
+              <span className="font-bold text-lg gradient-text">
                 GK
               </span>
             </Link>
@@ -34,13 +34,13 @@ export default function Header() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   className="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition-colors duration-300"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
               <a
                 href="#links"
@@ -74,8 +74,9 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2 hover:bg-cyan-500/20 rounded-lg"
+              className="md:hidden p-2 hover:bg-cyan-500/20 rounded-lg relative z-50"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
             >
               {isOpen ? (
                 <X className="w-6 h-6" />
@@ -97,14 +98,14 @@ export default function Header() {
                 <div className="pb-4">
                   <nav className="flex flex-col gap-2 pt-4 px-2">
                     {navItems.map((item) => (
-                      <a
+                      <Link
                         key={item.label}
                         href={item.href}
                         className="px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-lg transition-colors duration-300"
                         onClick={() => setIsOpen(false)}
                       >
                         {item.label}
-                      </a>
+                      </Link>
                     ))}
                     <a
                       href="#links"
