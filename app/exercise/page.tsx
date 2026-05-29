@@ -32,6 +32,7 @@ export default function ExercisePage() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [customApiUrl, setCustomApiUrl] = useState("https://emkc.org/api/v2/piston/execute");
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
@@ -44,8 +45,32 @@ export default function ExercisePage() {
     setIsLoading(true);
     setOutput("");
 
+    // Local Execution for JavaScript
+    if (language === "javascript") {
+      try {
+        const originalConsoleLog = console.log;
+        let logs: string[] = [];
+        console.log = (...args) => {
+          logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' '));
+        };
+        
+        // Execute code
+        const executionResult = new Function(code)();
+        if (executionResult !== undefined) {
+          logs.push(String(executionResult));
+        }
+        
+        console.log = originalConsoleLog;
+        setOutput(logs.join('\n') || "Executed successfully without output.");
+      } catch (error: any) {
+        setOutput("Runtime Error: " + error.message);
+      }
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch("https://emkc.org/api/v2/piston/execute", {
+      const response = await fetch(customApiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,13 +89,18 @@ export default function ExercisePage() {
 
       const result = await response.json();
       
-      if (result.run) {
+      if (result.message && result.message.includes("whitelist")) {
+        setOutput(
+          `API Error: ${result.message}\n\n` + 
+          `The public Piston API now requires authorization. To run languages like Python/C++/Java, you need to self-host Piston (or use an alternative) and provide your URL in the configuration below.`
+        );
+      } else if (result.run) {
         setOutput(result.run.output || (result.run.stderr ? "Error: " + result.run.stderr : "No output generated."));
       } else {
         setOutput(result.message || "Execution failed.");
       }
     } catch (error) {
-      setOutput("Network Error: Failed to execute code. Piston API might be down.");
+      setOutput("Network Error: Failed to execute code. Ensure your Piston API URL is correct and the server is running.");
     } finally {
       setIsLoading(false);
     }
@@ -84,6 +114,26 @@ export default function ExercisePage() {
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold gradient-text mb-4">Interactive Compiler</h1>
           <p className="text-slate-400">Write, run, and test code instantly across multiple programming languages.</p>
+          
+          {/* API Configuration */}
+          <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-slate-900/50 p-3 rounded-lg border border-cyan-500/20 max-w-2xl">
+            <span className="text-sm font-medium text-slate-300 whitespace-nowrap">API URL:</span>
+            <input 
+              type="text" 
+              value={customApiUrl}
+              onChange={(e) => setCustomApiUrl(e.target.value)}
+              placeholder="e.g. https://emkc.org/api/v2/piston/execute"
+              className="flex-1 w-full bg-slate-950 border border-cyan-500/30 rounded px-3 py-1.5 text-sm text-cyan-100 focus:outline-none focus:border-cyan-400 transition-colors"
+            />
+            <a 
+              href="https://github.com/engineer-man/piston" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xs text-cyan-400 hover:text-cyan-300 underline whitespace-nowrap"
+            >
+              How to self-host Piston?
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6 flex-1 lg:h-[600px]">
