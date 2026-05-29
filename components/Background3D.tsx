@@ -7,7 +7,7 @@ import { Points, PointMaterial, Text, Float } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 
 function ParticleSwarm(props: any) {
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
   // Generate random positions in a sphere
   const sphere = useMemo(() => {
     const data = new Float32Array(5000 * 3);
