@@ -32,7 +32,6 @@ export default function ExercisePage() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState("");
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
@@ -69,19 +68,11 @@ export default function ExercisePage() {
       return;
     }
 
-    if (!apiKey) {
-      setOutput("Please enter your Judge0 RapidAPI Key in the configuration box above to run backend languages (Python, C++, Java, etc). JS will still work locally.");
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const response = await fetch("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=false&wait=true", {
+      const response = await fetch("/api/execute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-RapidAPI-Key": apiKey,
-          "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
         },
         body: JSON.stringify({
           language_id: LANGUAGE_IDS[language],
@@ -92,8 +83,8 @@ export default function ExercisePage() {
 
       const result = await response.json();
       
-      if (response.status === 401 || response.status === 403) {
-        setOutput("API Error: Invalid RapidAPI Key. Please make sure you are subscribed to the free Judge0 CE API on RapidAPI.");
+      if (response.status !== 200) {
+        setOutput(`API Error: ${result.message || 'Unknown error'}`);
       } else if (result.stdout !== null) {
         setOutput(result.stdout || "Execution finished (No Output)");
       } else if (result.stderr !== null) {
@@ -104,7 +95,7 @@ export default function ExercisePage() {
         setOutput("Execution failed: " + (result.message || "Unknown error"));
       }
     } catch (error) {
-      setOutput("Network Error: Failed to execute code. Check your internet connection.");
+      setOutput("Network Error: Failed to connect to the backend server.");
     } finally {
       setIsLoading(false);
     }
@@ -118,26 +109,6 @@ export default function ExercisePage() {
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold gradient-text mb-4">Interactive Compiler</h1>
           <p className="text-slate-400">Write, run, and test code instantly across multiple programming languages.</p>
-          
-          {/* API Configuration */}
-          <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-slate-900/50 p-3 rounded-lg border border-cyan-500/20 max-w-2xl">
-            <span className="text-sm font-medium text-slate-300 whitespace-nowrap">RapidAPI Key:</span>
-            <input 
-              type="password" 
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="Enter your Judge0 CE RapidAPI Key"
-              className="flex-1 w-full bg-slate-950 border border-cyan-500/30 rounded px-3 py-1.5 text-sm text-cyan-100 focus:outline-none focus:border-cyan-400 transition-colors"
-            />
-            <a 
-              href="https://rapidapi.com/judge0-official/api/judge0-ce" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs text-cyan-400 hover:text-cyan-300 underline whitespace-nowrap"
-            >
-              Get Free API Key
-            </a>
-          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6 flex-1 lg:h-[600px]">
