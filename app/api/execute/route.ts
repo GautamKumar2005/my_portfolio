@@ -19,6 +19,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Unsupported language." }, { status: 400 });
     }
 
+    let finalCode = source_code;
+    // Wandbox saves Java single-file executions to `prog.java`.
+    // If the user specifies `public class Main`, Java enforces the filename `Main.java`.
+    // We strip the `public` modifier from the top-level class so it compiles cleanly.
+    if (language_id === 62) {
+      finalCode = finalCode.replace(/public\s+class\s+([a-zA-Z0-9_]+)/g, "class $1");
+    }
+
     let data;
     let retries = 3;
     let lastError = null;
@@ -33,7 +41,7 @@ export async function POST(req: Request) {
           },
           body: JSON.stringify({
             compiler: compiler,
-            code: source_code,
+            code: finalCode,
             stdin: stdin || "",
           }),
         });
