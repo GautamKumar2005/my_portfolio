@@ -110,7 +110,7 @@ const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number })
       {/* Links */}
       <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-cyan-500/20 mt-auto">
         <a
-          href={project.url}
+          href={project.html_url}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-300 text-sm font-medium transition-colors active:scale-95"
