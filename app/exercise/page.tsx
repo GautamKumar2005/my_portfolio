@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Editor from "@monaco-editor/react";
 import { Play, Loader2, Code, TerminalSquare } from "lucide-react";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 const LANGUAGE_IDS = {
   python: 71,
@@ -32,6 +33,15 @@ export default function ExercisePage() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we are on a mobile device to stack panels vertically
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
@@ -101,104 +111,149 @@ export default function ExercisePage() {
     }
   };
 
+  const editorContent = (
+    <div className="h-full flex flex-col bg-slate-900/50">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-cyan-500/30 bg-slate-900/80">
+        <div className="flex items-center gap-2">
+          <Code className="w-5 h-5 text-cyan-400" />
+          <select
+            value={language}
+            onChange={(e) => handleLanguageChange(e.target.value as Language)}
+            className="bg-transparent text-sm font-semibold text-cyan-300 focus:outline-none cursor-pointer"
+          >
+            <option value="python" className="bg-slate-900 text-slate-200">Python</option>
+            <option value="cpp" className="bg-slate-900 text-slate-200">C++</option>
+            <option value="c" className="bg-slate-900 text-slate-200">C</option>
+            <option value="java" className="bg-slate-900 text-slate-200">Java</option>
+            <option value="javascript" className="bg-slate-900 text-slate-200">JavaScript</option>
+            <option value="typescript" className="bg-slate-900 text-slate-200">TypeScript</option>
+          </select>
+        </div>
+        
+        <button
+          onClick={runCode}
+          disabled={isLoading}
+          className="flex items-center gap-2 px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+          <span className="hidden sm:inline">Run Code</span>
+          <span className="sm:hidden">Run</span>
+        </button>
+      </div>
+      
+      <div className="flex-1 relative">
+        <Editor
+          height="100%"
+          language={language === "c" || language === "cpp" ? "cpp" : language}
+          theme="vs-dark"
+          value={code}
+          onChange={(value) => setCode(value || "")}
+          options={{
+            minimap: { enabled: false },
+            fontSize: 14,
+            fontFamily: "var(--font-mono)",
+            padding: { top: 16 },
+            scrollBeyondLastLine: false,
+            smoothScrolling: true,
+            wordWrap: "on",
+          }}
+        />
+      </div>
+    </div>
+  );
+
+  const inputContent = (
+    <div className="h-full flex flex-col bg-slate-900/50">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/30 bg-slate-900/80">
+        <TerminalSquare className="w-4 h-4 text-cyan-400" />
+        <h3 className="text-sm font-semibold text-slate-300">Standard Input (stdin)</h3>
+      </div>
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Enter input here..."
+        className="flex-1 w-full p-4 bg-transparent resize-none focus:outline-none font-mono text-sm text-slate-300"
+      />
+    </div>
+  );
+
+  const outputContent = (
+    <div className="h-full flex flex-col bg-black/40">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/30 bg-slate-900/80">
+        <TerminalSquare className="w-4 h-4 text-cyan-400" />
+        <h3 className="text-sm font-semibold text-slate-300">Output</h3>
+      </div>
+      <div className="flex-1 p-4 overflow-y-auto">
+        {isLoading ? (
+          <div className="flex items-center justify-center h-full text-slate-500 gap-2">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            Executing...
+          </div>
+        ) : (
+          <pre className="font-mono text-sm whitespace-pre-wrap text-slate-300">
+            {output || "Output will appear here..."}
+          </pre>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <main className="min-h-screen bg-[#020617] text-slate-200 selection:bg-cyan-500/30 selection:text-white flex flex-col">
       <Header />
       
-      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 flex flex-col h-full">
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold gradient-text mb-4">Interactive Compiler</h1>
-          <p className="text-slate-400">Write, run, and test code instantly across multiple programming languages.</p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-6 flex-1 lg:h-[600px]">
-          {/* Left Panel: Editor */}
-          <div className="flex-1 flex flex-col glass rounded-xl border border-cyan-500/30 overflow-hidden min-h-[400px]">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-cyan-500/30 bg-slate-900/50">
-              <div className="flex items-center gap-2">
-                <Code className="w-5 h-5 text-cyan-400" />
-                <select
-                  value={language}
-                  onChange={(e) => handleLanguageChange(e.target.value as Language)}
-                  className="bg-transparent text-sm font-semibold text-cyan-300 focus:outline-none cursor-pointer"
-                >
-                  <option value="python" className="bg-slate-900 text-slate-200">Python</option>
-                  <option value="cpp" className="bg-slate-900 text-slate-200">C++</option>
-                  <option value="c" className="bg-slate-900 text-slate-200">C</option>
-                  <option value="java" className="bg-slate-900 text-slate-200">Java</option>
-                  <option value="javascript" className="bg-slate-900 text-slate-200">JavaScript</option>
-                  <option value="typescript" className="bg-slate-900 text-slate-200">TypeScript</option>
-                </select>
-              </div>
-              
-              <button
-                onClick={runCode}
-                disabled={isLoading}
-                className="flex items-center gap-2 px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-                Run Code
-              </button>
-            </div>
-            
-            <div className="flex-1 relative">
-              <Editor
-                height="100%"
-                language={language === "c" || language === "cpp" ? "cpp" : language}
-                theme="vs-dark"
-                value={code}
-                onChange={(value) => setCode(value || "")}
-                options={{
-                  minimap: { enabled: false },
-                  fontSize: 14,
-                  fontFamily: "var(--font-mono)",
-                  padding: { top: 16 },
-                  scrollBeyondLastLine: false,
-                  smoothScrolling: true,
-                }}
-              />
+      <div className="w-full pt-16 flex flex-col min-h-[900px] lg:h-[110vh]">
+        <div className="flex-1 w-full px-4 sm:px-6 lg:px-8 pt-6 pb-4 flex flex-col min-h-0">
+          <div className="mb-4 shrink-0 flex items-end justify-between">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold gradient-text">Interactive Compiler</h1>
+              <p className="text-sm text-slate-400 mt-1">Write, run, and test code instantly.</p>
             </div>
           </div>
 
-          {/* Right Panel: I/O */}
-          <div className="w-full lg:w-96 flex flex-col gap-6 h-[400px] lg:h-auto">
-            {/* Standard Input */}
-            <div className="flex-1 flex flex-col glass rounded-xl border border-cyan-500/30 overflow-hidden min-h-[150px]">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/30 bg-slate-900/50">
-                <TerminalSquare className="w-4 h-4 text-cyan-400" />
-                <h3 className="text-sm font-semibold text-slate-300">Standard Input (stdin)</h3>
+          {isMobile ? (
+            <div className="flex-1 w-full border border-cyan-500/30 rounded-xl overflow-hidden glass flex flex-col">
+              <div className="h-[500px] shrink-0">
+                {editorContent}
               </div>
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Enter input here..."
-                className="flex-1 w-full p-4 bg-transparent resize-none focus:outline-none font-mono text-sm text-slate-300"
-              />
-            </div>
-
-            {/* Standard Output */}
-            <div className="flex-1 flex flex-col glass rounded-xl border border-cyan-500/30 overflow-hidden min-h-[150px]">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/30 bg-slate-900/50">
-                <TerminalSquare className="w-4 h-4 text-cyan-400" />
-                <h3 className="text-sm font-semibold text-slate-300">Output</h3>
+              <div className="h-[250px] shrink-0 border-t border-cyan-500/30">
+                {inputContent}
               </div>
-              <div className="flex-1 p-4 overflow-y-auto bg-black/40">
-                {isLoading ? (
-                  <div className="flex items-center justify-center h-full text-slate-500 gap-2">
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Executing...
-                  </div>
-                ) : (
-                  <pre className="font-mono text-sm whitespace-pre-wrap text-slate-300">
-                    {output || "Output will appear here..."}
-                  </pre>
-                )}
+              <div className="h-[300px] shrink-0 border-t border-cyan-500/30">
+                {outputContent}
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex-1 w-full border border-cyan-500/30 rounded-xl overflow-hidden glass flex flex-col min-h-0">
+              <PanelGroup direction="horizontal" className="h-full w-full">
+                <Panel defaultSize={70} minSize={30}>
+                  {editorContent}
+                </Panel>
+                
+                <PanelResizeHandle className="w-2 bg-slate-800 hover:bg-cyan-500/50 transition-colors cursor-col-resize flex flex-col items-center justify-center">
+                  <div className="h-8 w-1 bg-slate-600 rounded-full" />
+                </PanelResizeHandle>
+                
+                <Panel defaultSize={30} minSize={10}>
+                  <PanelGroup direction="vertical">
+                    <Panel defaultSize={50} minSize={20}>
+                      {inputContent}
+                    </Panel>
+                    
+                    <PanelResizeHandle className="h-2 bg-slate-800 hover:bg-cyan-500/50 transition-colors cursor-row-resize flex items-center justify-center">
+                      <div className="w-8 h-1 bg-slate-600 rounded-full" />
+                    </PanelResizeHandle>
+                    
+                    <Panel defaultSize={50} minSize={20}>
+                      {outputContent}
+                    </Panel>
+                  </PanelGroup>
+                </Panel>
+              </PanelGroup>
+            </div>
+          )}
         </div>
       </div>
-      
       <Footer />
     </main>
   );

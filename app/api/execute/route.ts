@@ -19,20 +19,62 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Unsupported language." }, { status: 400 });
     }
 
-    const response = await fetch("https://wandbox.org/api/compile.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      },
-      body: JSON.stringify({
-        compiler: compiler,
-        code: source_code,
-        stdin: stdin || "",
-      }),
-    });
+    let data;
+    let retries = 3;
+    let lastError = null;
 
-    const data = await response.json();
+    while (retries > 0) {
+      try {
+        const response = await fetch("https://wandbox.org/api/compile.json", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+          },
+          body: JSON.stringify({
+            compiler: compiler,
+            code: source_code,
+            stdin: stdin || "",
+          }),
+        });
+
+        data = await response.json();
+        
+        // Check for temporary server overload errors
+        const isOverloaded = data && (
+          (data.compiler_error && data.compiler_error.includes("Resource temporarily unavailable")) ||
+          (data.program_error && data.program_error.includes("Resource temporarily unavailable"))
+        );
+
+        if (isOverloaded) {
+          retries--;
+          if (retries > 0) {
+            await new Promise(resolve => setTimeout(resolve, 1500)); // wait 1.5s before retrying
+            continue;
+          } else {
+             const overloadMsg = "The execution server is currently experiencing high load and cannot allocate resources. Please wait a few seconds and try running your code again.";
+             if (data.compiler_error && data.compiler_error.includes("Resource temporarily unavailable")) {
+                 data.compiler_error = overloadMsg;
+             }
+             if (data.program_error && data.program_error.includes("Resource temporarily unavailable")) {
+                 data.program_error = overloadMsg;
+             }
+          }
+        }
+        
+        break; // Success or an error we shouldn't retry
+      } catch (e) {
+        lastError = e;
+        retries--;
+        if (retries > 0) {
+          await new Promise(resolve => setTimeout(resolve, 1500));
+        }
+      }
+    }
+
+    if (!data) {
+      throw lastError || new Error("Failed to reach execution API after retries");
+    }
 
     // Map Wandbox response format back to what the frontend expects (Judge0 format)
     const result = {
