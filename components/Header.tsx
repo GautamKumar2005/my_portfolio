@@ -14,7 +14,7 @@ export default function Header() {
     { label: "Skills & Expertise", href: "/#skills" },
     { label: "Featured Projects", href: "/#projects" },
     { label: "Education & CP", href: "/#experience" },
-    { label: "Excercise", href: "/exercise" },
+    { label: "Practice", href: "/exercise" },
   ];
 
   return (
