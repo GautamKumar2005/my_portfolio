@@ -1,6 +1,6 @@
 export const PROFILE = {
   name: "Gautam Kumar",
-  title: "Software Engineer & AI Enthusiast",
+  title: "Software Developer & AI Engineer",
   subtitle: "DTU | 2027 Graduate",
   description:
     "Passionate about building scalable applications and exploring AI/ML. Competitive programmer with a keen interest in full-stack development.",
