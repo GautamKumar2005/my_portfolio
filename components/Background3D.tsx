@@ -46,6 +46,7 @@ const PROGRAMMING_TEXTS = [
   "def train_model():",
   "import torch",
   "SELECT * FROM users",
+  "import tensorflow as tf",
   "git commit -m 'feat'",
   "npm run dev",
   "<div className='flex'>",

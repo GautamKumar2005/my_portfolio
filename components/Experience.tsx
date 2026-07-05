@@ -100,30 +100,50 @@ export default function Experience() {
           </motion.div>
 
           {/* Competitive Programming Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            {/* LeetCode Stats */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="glass p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/50 transition-all text-center flex flex-col items-center"
-            >
-              <h3 className="text-xl font-bold text-yellow-400 mb-4">LeetCode Profile</h3>
-              <div className="w-full overflow-hidden rounded-lg">
-                <img
-                  src="https://leetcard.jacoblin.cool/GautamKumar_code?theme=dark&font=Inter&ext=heatmap"
-                  alt="LeetCode Stats & Heatmap"
-                  className="w-full max-w-full h-auto object-contain"
-                />
-              </div>
-            </motion.div>
+          <div className="flex flex-col gap-6 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* LeetCode Activity */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="glass p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/50 transition-all text-center flex flex-col items-center justify-center h-full"
+              >
+                <h3 className="text-xl font-bold text-yellow-400 mb-4">LeetCode Activity</h3>
+                <div className="w-full overflow-hidden rounded-lg flex justify-center items-center flex-1">
+                  <img
+                    src="https://leetcard.jacoblin.cool/GautamKumar_code?theme=dark&font=Inter&ext=heatmap"
+                    alt="LeetCode Stats & Heatmap"
+                    className="w-full max-w-full h-auto object-contain"
+                  />
+                </div>
+              </motion.div>
+
+              {/* LeetCode Contest */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="glass p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/50 transition-all text-center flex flex-col items-center justify-center h-full"
+              >
+                <h3 className="text-xl font-bold text-orange-400 mb-4">LeetCode Contest</h3>
+                <div className="w-full overflow-hidden rounded-lg flex justify-center items-center flex-1">
+                  <img
+                    src="https://leetcard.jacoblin.cool/GautamKumar_code?theme=dark&font=Inter&ext=contest"
+                    alt="LeetCode Contest Stats"
+                    className="w-full max-w-full h-auto object-contain"
+                  />
+                </div>
+              </motion.div>
+            </div>
 
             {/* Codeforces Stats */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
               className="glass p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/50 transition-all text-center flex flex-col items-center justify-center"
             >
@@ -132,7 +152,7 @@ export default function Experience() {
                 <img
                   src="https://codeforces-readme-stats.vercel.app/api/card?username=Galacti_&theme=dark"
                   alt="Codeforces Stats"
-                  className="w-full max-w-full h-auto object-contain"
+                  className="w-full max-w-xl h-auto object-contain"
                 />
               </div>
             </motion.div>
