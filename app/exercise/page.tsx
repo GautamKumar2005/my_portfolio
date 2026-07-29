@@ -4,7 +4,16 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Editor from "@monaco-editor/react";
-import { Play, Loader2, Code, TerminalSquare } from "lucide-react";
+import {
+  Play,
+  Loader2,
+  Code,
+  TerminalSquare,
+  Copy,
+  Check,
+  RotateCcw,
+  Wand2,
+} from "lucide-react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 const LANGUAGE_IDS = {
@@ -18,7 +27,7 @@ const LANGUAGE_IDS = {
 
 const CODE_SNIPPETS = {
   python: `print("Hello from Python!")\n# Try inputting a name in the stdin box:\n# name = input()\n# print("Hello, " + name)`,
-  cpp: `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello from C++!" << endl;\n    return 0;\n}`,
+  cpp: `#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    cout << "Hello from C++!" << endl;\n    return 0;\n}`,
   c: `#include <stdio.h>\n\nint main() {\n    printf("Hello from C!\\n");\n    return 0;\n}`,
   java: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello from Java!");\n    }\n}`,
   javascript: `console.log("Hello from JavaScript!");`,
@@ -27,6 +36,38 @@ const CODE_SNIPPETS = {
 
 type Language = keyof typeof LANGUAGE_IDS;
 
+function formatCodeString(code: string, lang: Language): string {
+  if (lang === "python") {
+    return code
+      .split("\n")
+      .map((line) => line.trimEnd())
+      .join("\n");
+  }
+
+  const lines = code.split("\n");
+  let indentLevel = 0;
+  const indentSize = 4;
+  const formattedLines = lines.map((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) return "";
+
+    if (trimmed.startsWith("}") || trimmed.startsWith("]")) {
+      indentLevel = Math.max(0, indentLevel - 1);
+    }
+
+    const currentIndent = " ".repeat(indentLevel * indentSize);
+    const result = currentIndent + trimmed;
+
+    if (trimmed.endsWith("{") || trimmed.endsWith("[")) {
+      indentLevel++;
+    }
+
+    return result;
+  });
+
+  return formattedLines.join("\n");
+}
+
 export default function ExercisePage() {
   const [language, setLanguage] = useState<Language>("python");
   const [code, setCode] = useState(CODE_SNIPPETS["python"]);
@@ -34,6 +75,36 @@ export default function ExercisePage() {
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+  const [editorRef, setEditorRef] = useState<any>(null);
+
+  const handleEditorDidMount = (editor: any) => {
+    setEditorRef(editor);
+  };
+
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy code: ", err);
+    }
+  };
+
+  const handleResetCode = () => {
+    setCode(CODE_SNIPPETS[language]);
+  };
+
+  const handleFormatCode = () => {
+    if (editorRef) {
+      editorRef.getAction("editor.action.formatDocument")?.run();
+    }
+    const formatted = formatCodeString(code, language);
+    if (formatted !== code) {
+      setCode(formatted);
+    }
+  };
 
   // Check if we are on a mobile device to stack panels vertically
   useEffect(() => {
@@ -130,15 +201,48 @@ export default function ExercisePage() {
           </select>
         </div>
         
-        <button
-          onClick={runCode}
-          disabled={isLoading}
-          className="flex items-center gap-2 px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-          <span className="hidden sm:inline">Run Code</span>
-          <span className="sm:hidden">Run</span>
-        </button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={handleFormatCode}
+            title="Format Code"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 hover:border-cyan-500/40 text-xs font-semibold transition-all active:scale-95 cursor-pointer"
+          >
+            <Wand2 className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden sm:inline">Format</span>
+          </button>
+
+          <button
+            onClick={handleResetCode}
+            title="Reset to default code"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 hover:border-cyan-500/40 text-xs font-semibold transition-all active:scale-95 cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden sm:inline">Reset</span>
+          </button>
+
+          <button
+            onClick={handleCopyCode}
+            title="Copy code to clipboard"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 hover:border-cyan-500/40 text-xs font-semibold transition-all active:scale-95 cursor-pointer"
+          >
+            {isCopied ? (
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+            ) : (
+              <Copy className="w-3.5 h-3.5 text-cyan-400" />
+            )}
+            <span className="hidden sm:inline">{isCopied ? "Copied" : "Copy"}</span>
+          </button>
+
+          <button
+            onClick={runCode}
+            disabled={isLoading}
+            className="flex items-center gap-2 px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-95"
+          >
+            {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+            <span className="hidden sm:inline">Run Code</span>
+            <span className="sm:hidden">Run</span>
+          </button>
+        </div>
       </div>
       
       <div className="flex-1 relative">
@@ -148,6 +252,7 @@ export default function ExercisePage() {
           theme="vs-dark"
           value={code}
           onChange={(value) => setCode(value || "")}
+          onMount={handleEditorDidMount}
           options={{
             minimap: { enabled: false },
             fontSize: 14,
