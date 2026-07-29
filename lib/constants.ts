@@ -54,6 +54,7 @@ export const SOCIAL_PROFILES = [
     url: LINKS.leetcode,
     color: "from-yellow-500 to-orange-500",
     stats: "Competitive Programming",
+    logo: "https://assets.leetcode.com/users/leetcode/avatar_1568224780.png",
   },
   {
     name: "CodeChef",
@@ -61,6 +62,7 @@ export const SOCIAL_PROFILES = [
     url: LINKS.codechef,
     color: "from-amber-500 to-orange-600",
     stats: "Problem Solving",
+    logo: "https://lh3.googleusercontent.com/w6TMejkbDjQ2tCGzhDbBAUQ1yUx9Xex_70jIxubGvHR6tRwkd3Z41hE0tDyOcTNc7jnW",
   },
   {
     name: "Codeforces",
@@ -68,6 +70,7 @@ export const SOCIAL_PROFILES = [
     url: LINKS.codeforces,
     color: "from-blue-500 to-cyan-500",
     stats: "Algorithm Contests",
+    logo: "https://www.tle-eliminators.com/static/media/codeforces.ae4c993044d8dd8677e85589e8755578.svg",
   },
   {
     name: "GeeksforGeeks",
@@ -75,6 +78,7 @@ export const SOCIAL_PROFILES = [
     url: LINKS.geeksforgeeks,
     color: "from-green-500 to-emerald-600",
     stats: "Learning & Tutorials",
+    logo: "https://media.geeksforgeeks.org/gfg-gg-logo.svg",
   },
   {
     name: "GitHub",
@@ -89,6 +93,7 @@ export const SOCIAL_PROFILES = [
     url: LINKS.codolio,
     color: "from-fuchsia-500 to-purple-600",
     stats: "Coding Analytics",
+    logo: "https://codolio.com/codolio_assets/codolio.svg",
   },
 ];
 

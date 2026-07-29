@@ -54,9 +54,17 @@ export default function ProfileLinks() {
             >
               {/* Icon */}
               <div
-                className={`w-14 h-14 rounded-lg flex items-center justify-center mb-4 bg-gradient-to-br ${profile.color} text-white group-hover:scale-110 transition-transform`}
+                className={`w-14 h-14 rounded-lg flex items-center justify-center mb-4 bg-gradient-to-br ${profile.color} text-white group-hover:scale-110 transition-transform overflow-hidden`}
               >
-                {iconMap[profile.icon] || <Code className="w-8 h-8" />}
+                {"logo" in profile && profile.logo ? (
+                  <img
+                    src={profile.logo}
+                    alt={profile.name}
+                    className="w-9 h-9 object-contain drop-shadow-md"
+                  />
+                ) : (
+                  iconMap[profile.icon] || <Code className="w-8 h-8" />
+                )}
               </div>
 
               {/* Content */}
