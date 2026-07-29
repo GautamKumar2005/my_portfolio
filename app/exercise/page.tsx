@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Editor from "@monaco-editor/react";
+import jsBeautify from "js-beautify";
 import {
   Play,
   Loader2,
@@ -38,34 +39,67 @@ type Language = keyof typeof LANGUAGE_IDS;
 
 function formatCodeString(code: string, lang: Language): string {
   if (lang === "python") {
-    return code
-      .split("\n")
-      .map((line) => line.trimEnd())
-      .join("\n");
+    const lines = code.split("\n");
+    let currentIndent = 0;
+    const indentSize = 4;
+    const formatted: string[] = [];
+    let blankLinesCount = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+      const rawLine = lines[i];
+      const trimmed = rawLine.trim();
+
+      if (!trimmed) {
+        if (blankLinesCount < 2 && formatted.length > 0) {
+          formatted.push("");
+          blankLinesCount++;
+        }
+        continue;
+      }
+      blankLinesCount = 0;
+
+      let lineIndent = currentIndent;
+      if (
+        trimmed.startsWith("elif ") ||
+        trimmed.startsWith("else:") ||
+        trimmed.startsWith("except ") ||
+        trimmed.startsWith("except:") ||
+        trimmed.startsWith("finally:")
+      ) {
+        lineIndent = Math.max(0, currentIndent - 1);
+      }
+
+      const spaces = " ".repeat(lineIndent * indentSize);
+      formatted.push(spaces + trimmed);
+
+      const withoutComment = trimmed.split("#")[0].trim();
+      if (withoutComment.endsWith(":")) {
+        currentIndent++;
+      } else if (
+        withoutComment.startsWith("return") ||
+        withoutComment.startsWith("break") ||
+        withoutComment.startsWith("continue") ||
+        withoutComment.startsWith("pass")
+      ) {
+        currentIndent = Math.max(0, currentIndent - 1);
+      }
+    }
+
+    return formatted.join("\n");
   }
 
-  const lines = code.split("\n");
-  let indentLevel = 0;
-  const indentSize = 4;
-  const formattedLines = lines.map((line) => {
-    const trimmed = line.trim();
-    if (!trimmed) return "";
-
-    if (trimmed.startsWith("}") || trimmed.startsWith("]")) {
-      indentLevel = Math.max(0, indentLevel - 1);
-    }
-
-    const currentIndent = " ".repeat(indentLevel * indentSize);
-    const result = currentIndent + trimmed;
-
-    if (trimmed.endsWith("{") || trimmed.endsWith("[")) {
-      indentLevel++;
-    }
-
-    return result;
-  });
-
-  return formattedLines.join("\n");
+  try {
+    const beautifyFunc = jsBeautify.js || jsBeautify;
+    return beautifyFunc(code, {
+      indent_size: 4,
+      space_in_empty_paren: false,
+      preserve_newlines: true,
+      max_preserve_newlines: 2,
+    });
+  } catch (err) {
+    console.error("Formatting error:", err);
+    return code;
+  }
 }
 
 export default function ExercisePage() {
@@ -97,9 +131,6 @@ export default function ExercisePage() {
   };
 
   const handleFormatCode = () => {
-    if (editorRef) {
-      editorRef.getAction("editor.action.formatDocument")?.run();
-    }
     const formatted = formatCodeString(code, language);
     if (formatted !== code) {
       setCode(formatted);
