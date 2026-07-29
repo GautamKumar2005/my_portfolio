@@ -76,10 +76,10 @@ export default function Footer() {
               Get In Touch
             </h4>
             <a
-              href="mailto:gautam@example.com"
+              href={`mailto:${LINKS.email}`}
               className="block text-sm text-slate-400 hover:text-cyan-300 transition-colors break-all"
             >
-              gautam@example.com
+              {LINKS.email || "Contact via Email"}
             </a>
             <button
               onClick={scrollToTop}

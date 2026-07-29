@@ -15,7 +15,7 @@ export const LINKS = {
   codeforces: "https://codeforces.com/profile/Galacti_",
   geeksforgeeks: "https://www.geeksforgeeks.org/profile/gautamgkdz",
   codolio: "https://codolio.com/profile/Gautam_coder2005",
-  email: "gautam@example.com", // Update with your email
+  email: process.env.NEXT_PUBLIC_EMAIL || process.env.EMAIL || "",
 };
 
 export const SKILLS = {
@@ -43,7 +43,7 @@ export const EDUCATION = {
   degree: "B.Tech in Software Engineering",
   year: "2027",
   location: "Delhi, India",
-  cgpa: "8.52",
+  cgpa: "8.53",
   link: "https://www.google.com/maps/place/Delhi+Technological+University/@28.7500684,77.1053391,2305m/data=!3m1!1e3!4m15!1m8!3m7!1s0x390d0127947c9d65:0x12ce9ec01b812d4e!2sDelhi+Technological+University,+Shahbad+Daulatpur+Village,+Rohini,+Delhi,+110042!3b1!8m2!3d28.7499867!4d77.1183137!16s%2Fg%2F1pv1y63s8!3m5!1s0x390d0138a74f7da7:0xf09fad683c23bd5d!8m2!3d28.7486085!4d77.1172002!16zL20vMGI1ajdq?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D",
 };
 

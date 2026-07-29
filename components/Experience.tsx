@@ -65,7 +65,7 @@ export default function Experience() {
                   <p className="text-slate-300 font-medium">
                     Expected Graduation: <span className="text-cyan-300">{EDUCATION.year}</span>
                   </p>
-                  <p className="text-slate-500 text-sm">Current Year: 3rd Year (2026)</p>
+                  <p className="text-slate-500 text-sm">Current Year: 4th Year (2027)</p>
                   {EDUCATION.cgpa && (
                     <p className="text-slate-400 text-sm mt-1">
                       CGPA: <span className="text-cyan-300 font-medium">{EDUCATION.cgpa}</span>

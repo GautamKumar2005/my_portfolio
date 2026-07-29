@@ -11,7 +11,7 @@ import {
   LineChart,
 } from "lucide-react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { SOCIAL_PROFILES } from "@/lib/constants";
+import { SOCIAL_PROFILES, LINKS } from "@/lib/constants";
 
 const iconMap: Record<string, React.ReactNode> = {
   code: <Code className="w-8 h-8" />,
@@ -104,7 +104,7 @@ export default function ProfileLinks() {
             hear from you!
           </p>
           <a
-            href="mailto:gautam@example.com"
+            href={`mailto:${LINKS.email}`}
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
           >
             <Mail className="w-5 h-5" />
