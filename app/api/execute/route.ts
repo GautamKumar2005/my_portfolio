@@ -76,7 +76,7 @@ function checkCommandMissing(res: CommandResult): boolean {
   return (
     !!res.enoent ||
     res.code === 9009 ||
-    (res.stderr && res.stderr.includes("is not recognized as an internal or external command"))
+    (!!res.stderr && res.stderr.includes("is not recognized as an internal or external command"))
   );
 }
 
