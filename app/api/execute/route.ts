@@ -1,8 +1,189 @@
 import { NextResponse } from "next/server";
+import { spawn } from "child_process";
+import fs from "fs";
+import path from "path";
+
+const TEMP_DIR = path.join(process.cwd(), "temp_runs");
+
+interface CommandResult {
+  stdout: string;
+  stderr: string;
+  code: number | null;
+  killed: boolean;
+  enoent?: boolean;
+}
+
+interface ExecutionResult {
+  stdout: string | null;
+  stderr: string | null;
+  compile_output: string | null;
+  message: string | null;
+}
+
+async function runCommand(
+  cmd: string,
+  args: string[],
+  inputData: string,
+  cwd: string,
+  timeoutMs = 5000
+): Promise<CommandResult> {
+  return new Promise((resolve) => {
+    const child = spawn(cmd, args, { cwd, shell: true });
+    
+    let stdout = "";
+    let stderr = "";
+    let killed = false;
+
+    const timer = setTimeout(() => {
+      killed = true;
+      try {
+        child.kill("SIGKILL");
+      } catch (e) {
+        console.error("Failed to kill child process:", e);
+      }
+    }, timeoutMs);
+
+    if (inputData && child.stdin) {
+      try {
+        child.stdin.write(inputData);
+        child.stdin.end();
+      } catch (err) {
+        console.error("Stdin write error:", err);
+      }
+    }
+
+    child.stdout.on("data", (data) => {
+      stdout += data.toString();
+    });
+
+    child.stderr.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    child.on("close", (code) => {
+      clearTimeout(timer);
+      resolve({ stdout, stderr, code, killed });
+    });
+
+    child.on("error", (err: any) => {
+      clearTimeout(timer);
+      resolve({ stdout, stderr: err.message, code: -1, killed: false, enoent: err.code === "ENOENT" });
+    });
+  });
+}
+
+function checkCommandMissing(res: CommandResult): boolean {
+  return (
+    !!res.enoent ||
+    res.code === 9009 ||
+    (res.stderr && res.stderr.includes("is not recognized as an internal or external command"))
+  );
+}
+
+async function executeLocally(
+  language_id: number,
+  source_code: string,
+  stdin: string
+): Promise<ExecutionResult | null> {
+  const runId = Math.random().toString(36).substring(7);
+  const runDir = path.join(TEMP_DIR, runId);
+  
+  try {
+    if (!fs.existsSync(TEMP_DIR)) {
+      fs.mkdirSync(TEMP_DIR, { recursive: true });
+    }
+    fs.mkdirSync(runDir, { recursive: true });
+
+    if (language_id === 71) {
+      // Python
+      const filePath = path.join(runDir, "script.py");
+      fs.writeFileSync(filePath, source_code);
+      const res = await runCommand("python", [path.basename(filePath)], stdin, runDir);
+      if (checkCommandMissing(res)) return null;
+
+      if (res.killed) {
+        return { stdout: res.stdout, stderr: "Execution timed out (5s limit reached)", compile_output: null, message: "Execution timed out" };
+      }
+      return { stdout: res.stdout, stderr: res.stderr || null, compile_output: null, message: res.code !== 0 ? "Execution failed" : null };
+    }
+
+    if (language_id === 54) {
+      // C++
+      const filePath = path.join(runDir, "main.cpp");
+      fs.writeFileSync(filePath, source_code);
+      
+      const compileRes = await runCommand("g++", ["-O3", "main.cpp", "-o", "main.exe"], "", runDir);
+      if (checkCommandMissing(compileRes)) return null;
+
+      if (compileRes.code !== 0) {
+        return { stdout: null, stderr: null, compile_output: compileRes.stderr || compileRes.stdout, message: "Compilation failed" };
+      }
+
+      const runRes = await runCommand("main.exe", [], stdin, runDir);
+      if (runRes.killed) {
+        return { stdout: runRes.stdout, stderr: "Execution timed out (5s limit reached)", compile_output: null, message: "Execution timed out" };
+      }
+      return { stdout: runRes.stdout, stderr: runRes.stderr || null, compile_output: null, message: runRes.code !== 0 ? "Execution failed" : null };
+    }
+
+    if (language_id === 50) {
+      // C
+      const filePath = path.join(runDir, "main.c");
+      fs.writeFileSync(filePath, source_code);
+      
+      const compileRes = await runCommand("gcc", ["-O3", "main.c", "-o", "main.exe"], "", runDir);
+      if (checkCommandMissing(compileRes)) return null;
+
+      if (compileRes.code !== 0) {
+        return { stdout: null, stderr: null, compile_output: compileRes.stderr || compileRes.stdout, message: "Compilation failed" };
+      }
+
+      const runRes = await runCommand("main.exe", [], stdin, runDir);
+      if (runRes.killed) {
+        return { stdout: runRes.stdout, stderr: "Execution timed out (5s limit reached)", compile_output: null, message: "Execution timed out" };
+      }
+      return { stdout: runRes.stdout, stderr: runRes.stderr || null, compile_output: null, message: runRes.code !== 0 ? "Execution failed" : null };
+    }
+
+    if (language_id === 74) {
+      // TypeScript
+      const filePath = path.join(runDir, "script.ts");
+      fs.writeFileSync(filePath, source_code);
+      const res = await runCommand("npx", ["--yes", "tsx", "script.ts"], stdin, runDir);
+      if (checkCommandMissing(res)) return null;
+
+      if (res.killed) {
+        return { stdout: res.stdout, stderr: "Execution timed out (5s limit reached)", compile_output: null, message: "Execution timed out" };
+      }
+      return { stdout: res.stdout, stderr: res.stderr || null, compile_output: null, message: res.code !== 0 ? "Execution failed" : null };
+    }
+
+    return null;
+  } catch (err: any) {
+    console.error("Local execution error:", err);
+    return null;
+  } finally {
+    try {
+      if (fs.existsSync(runDir)) {
+        fs.rmSync(runDir, { recursive: true, force: true });
+      }
+    } catch (e) {
+      console.error("Failed to clean up temp dir:", e);
+    }
+  }
+}
 
 export async function POST(req: Request) {
   try {
     const { language_id, source_code, stdin } = await req.json();
+
+    // Try executing locally first if supported
+    if ([71, 54, 50, 74].includes(language_id)) {
+      const localResult = await executeLocally(language_id, source_code, stdin);
+      if (localResult) {
+        return NextResponse.json(localResult);
+      }
+    }
 
     // Mapping from our frontend language IDs (Judge0 style) to Wandbox compilers
     const WANDBOX_COMPILERS: Record<number, string> = {
