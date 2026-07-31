@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
+import os from "os";
 
-const TEMP_DIR = path.join(process.cwd(), "temp_runs");
+const TEMP_DIR = path.join(os.tmpdir(), "portfolio_runs");
 
 interface CommandResult {
   stdout: string;
@@ -177,8 +178,9 @@ export async function POST(req: Request) {
   try {
     const { language_id, source_code, stdin } = await req.json();
 
-    // Try executing locally first if supported
-    if ([71, 54, 50, 74].includes(language_id)) {
+    // Try executing locally first if supported and not running on Vercel
+    const IS_VERCEL = !!process.env.VERCEL;
+    if (!IS_VERCEL && [71, 54, 50, 74].includes(language_id)) {
       const localResult = await executeLocally(language_id, source_code, stdin);
       if (localResult) {
         return NextResponse.json(localResult);
