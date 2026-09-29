@@ -24,7 +24,7 @@ export async function fetchGitHubProjects(): Promise<GitHubRepo[]> {
     const repos: GitHubRepo[] = await response.json();
 
     const pinnedRepos = [
-      "insipreShop",
+      "inspireShop",
       "QuantEdge",
       "PTX-Analyzer-Static-Analysis-Optimization-Tool-for-GPU-Kernels",
       "CuisineAI-Food-Image-to-Recipe-Generation",
