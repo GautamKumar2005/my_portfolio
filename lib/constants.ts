@@ -16,11 +16,49 @@ export const LINKS = {
   geeksforgeeks: "https://www.geeksforgeeks.org/profile/gautamgkdz",
   codolio: "https://codolio.com/profile/Gautam_coder2005",
   email: process.env.NEXT_PUBLIC_EMAIL || process.env.EMAIL || "",
+  resume:
+    process.env.NEXT_PUBLIC_DRIVE_RESUME ||
+    process.env.DRIVE_RESUME ||
+    "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
+};
+
+export const RECRUITER_HIGHLIGHTS = {
+  status: "Actively Open to Summer 2026 / 2027 SWE & AI Engineering Roles",
+  targetRoles: [
+    "Software Development Engineer (SDE)",
+    "Backend Engineer (Python / FastAPI / Node)",
+    "AI / ML Engineer",
+    "Systems & Quantitative Developer (C++)",
+  ],
+  stats: [
+    { label: "University", value: "DTU '27", detail: "Software Engineering" },
+    { label: "Academic CGPA", value: "8.53 / 10", detail: "Top tier academic record" },
+    { label: "DSA & CP Solved", value: "500+", detail: "LeetCode, Codeforces & CodeChef" },
+    { label: "Core Tech Stack", value: "Python • C++", detail: "FastAPI, Flask, Next.js, PyTorch" },
+  ],
+  keyStrengths: [
+    "Production-grade Python APIs with FastAPI & Flask, async architecture, and Pydantic validation.",
+    "High-performance systems engineering & low-level analysis in C++ (LLVM IR, PTX ISA GPU parsing).",
+    "Deep Learning and Computer Vision pipelines using PyTorch, Torchvision, and YOLOv8.",
+    "Full-stack Next.js 15+ engineering with responsive UI, Tailwind CSS, and secure RESTful design.",
+  ],
 };
 
 export const SKILLS = {
-  languages: ["C", "C++", "TypeScript", "JavaScript (ES6+)", "Python", "SQL"],
-  aiml: ["PyTorch", "TensorFlow", "Keras", "Scikit-learn", "OpenCV", "YOLO"],
+  languages: ["Python", "C++", "C", "TypeScript", "JavaScript (ES6+)", "SQL"],
+  backend: [
+    "FastAPI",
+    "Flask",
+    "Python",
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "Supabase",
+  ],
+  aiml: ["PyTorch", "TensorFlow", "Keras", "Scikit-learn", "OpenCV", "YOLOv8", "Streamlit", "FastAPI", "Flask"],
   deeplearning: [
     "Transformers",
     "CNNs",
@@ -31,8 +69,7 @@ export const SKILLS = {
     "Gensim",
   ],
   frontend: ["Next.js", "React.js", "Tailwind CSS", "HTML5", "CSS3"],
-  backend: ["Node.js", "Express.js", "REST APIs", "MongoDB", "MySQL", "PostgreSQL", "Supabase"],
-  tools: ["Git", "GitHub", "Postman", "VS Code", "Linux (Ubuntu)", "WSL"],
+  tools: ["Git", "GitHub", "Docker", "Postman", "VS Code", "Linux (Ubuntu)", "WSL"],
   design: ["Figma", "Canva", "Draw.io", "UML Diagrams"],
   ai: ["Claude Code", "OpenAI APIs", "Gemini APIs"],
   fundamentals: ["Operating Systems", "DBMS", "OOP", "Computer Networks", "DSA"],

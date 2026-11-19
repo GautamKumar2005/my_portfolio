@@ -32,6 +32,7 @@ export default function Footer() {
                 { label: "Skills", href: "#skills" },
                 { label: "Projects", href: "#projects" },
                 { label: "Experience", href: "#experience" },
+                { label: "Resume & CV", href: "#resume" },
                 { label: "Links", href: "#links" },
               ].map((item) => (
                 <a

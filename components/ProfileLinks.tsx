@@ -111,13 +111,21 @@ export default function ProfileLinks() {
             Interested in working together or have a project in mind? I&apos;d love to
             hear from you!
           </p>
-          <a
-            href={`mailto:${LINKS.email}`}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
-          >
-            <Mail className="w-5 h-5" />
-            Get In Touch
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href={`mailto:${LINKS.email}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
+            >
+              <Mail className="w-5 h-5" />
+              Get In Touch
+            </a>
+            <a
+              href="#resume"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 glass border border-cyan-500/40 hover:border-cyan-400 text-cyan-300 font-semibold rounded-lg transition-all duration-300"
+            >
+              View Resume & CV
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
