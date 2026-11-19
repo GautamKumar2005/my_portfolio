@@ -9,7 +9,10 @@ import { SkillIcon } from "@/components/Skills";
 
 const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number }) => {
   const [expanded, setExpanded] = useState(false);
-  const override = PROJECT_OVERRIDES[project.name];
+  const override =
+    PROJECT_OVERRIDES[project.name] ||
+    (project.name.toLowerCase().includes("shop") ? PROJECT_OVERRIDES["inspireShop"] : undefined);
+  const displayName = override?.displayName || (project.name.toLowerCase().includes("shop") ? "InspireShop" : project.name);
   const displayHomepage = override?.homepage || project.homepage;
 
   // Determine tech stack to show
@@ -33,7 +36,7 @@ const ProjectCard = ({ project, index }: { project: GitHubRepo; index: number })
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <h3 className="text-xl font-bold text-cyan-300 group-hover:text-cyan-200 transition-colors break-all w-full sm:w-auto">
-              {project.name}
+              {displayName}
             </h3>
             <span className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold border border-slate-600 text-slate-400 rounded-full whitespace-nowrap">
               Public

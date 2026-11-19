@@ -34,7 +34,14 @@ export async function fetchGitHubProjects(): Promise<GitHubRepo[]> {
 
     // Filter to only include pinned repos and preserve the order
     const topRepos = pinnedRepos
-      .map(name => repos.find(repo => repo.name === name))
+      .map(name =>
+        repos.find(
+          repo =>
+            repo.name === name ||
+            (name.toLowerCase().includes("shop") && repo.name.toLowerCase().includes("shop")) ||
+            repo.name.toLowerCase() === name.toLowerCase()
+        )
+      )
       .filter((repo): repo is GitHubRepo => repo !== undefined);
 
     return topRepos;

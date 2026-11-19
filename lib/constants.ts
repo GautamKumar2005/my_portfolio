@@ -99,8 +99,31 @@ export const SOCIAL_PROFILES = [
   },
 ];
 
-export const PROJECT_OVERRIDES: Record<string, { description: string[]; techStack: string[]; homepage?: string }> = {
+export const PROJECT_OVERRIDES: Record<string, { displayName?: string; description: string[]; techStack: string[]; homepage?: string }> = {
+  "inspireShop": {
+    displayName: "InspireShop",
+    description: [
+      "Architected a high-throughput, full-stack ecosystem integrating an e-commerce engine with a social hub, facilitating seamless, sub-100ms real-time interactions for over 1,000+ simulated concurrent users.",
+      "Engineered a hybrid database architecture utilizing MongoDB for high-speed, flexible product indexing alongside Supabase (PostgreSQL) for structured authentication, reducing data redundancy by 25% and ensuring 100% data integrity.",
+      "Integrated real-time communication protocols using Socket.io to handle instant push notifications and live messaging, which boosted simulated user engagement and platform responsiveness by 40%.",
+      "Optimized frontend performance metrics via Next.js server-side rendering (SSR) and Tailwind CSS code-splitting, achieving an elite Lighthouse score of 96 and an industry-leading Largest Contentful Paint (LCP) of 0.9 seconds."
+    ],
+    techStack: ["Next.js", "React.js", "Node.js", "MongoDB", "PostgreSQL", "Supabase", "Socket.io", "Tailwind CSS", "Cloudinary", "JWT", "REST APIs"],
+    homepage: "https://insipreshop.vercel.app/"
+  },
+  "InspireShop": {
+    displayName: "InspireShop",
+    description: [
+      "Architected a high-throughput, full-stack ecosystem integrating an e-commerce engine with a social hub, facilitating seamless, sub-100ms real-time interactions for over 1,000+ simulated concurrent users.",
+      "Engineered a hybrid database architecture utilizing MongoDB for high-speed, flexible product indexing alongside Supabase (PostgreSQL) for structured authentication, reducing data redundancy by 25% and ensuring 100% data integrity.",
+      "Integrated real-time communication protocols using Socket.io to handle instant push notifications and live messaging, which boosted simulated user engagement and platform responsiveness by 40%.",
+      "Optimized frontend performance metrics via Next.js server-side rendering (SSR) and Tailwind CSS code-splitting, achieving an elite Lighthouse score of 96 and an industry-leading Largest Contentful Paint (LCP) of 0.9 seconds."
+    ],
+    techStack: ["Next.js", "React.js", "Node.js", "MongoDB", "PostgreSQL", "Supabase", "Socket.io", "Tailwind CSS", "Cloudinary", "JWT", "REST APIs"],
+    homepage: "https://insipreshop.vercel.app/"
+  },
   "insipreShop": {
+    displayName: "InspireShop",
     description: [
       "Architected a high-throughput, full-stack ecosystem integrating an e-commerce engine with a social hub, facilitating seamless, sub-100ms real-time interactions for over 1,000+ simulated concurrent users.",
       "Engineered a hybrid database architecture utilizing MongoDB for high-speed, flexible product indexing alongside Supabase (PostgreSQL) for structured authentication, reducing data redundancy by 25% and ensuring 100% data integrity.",
