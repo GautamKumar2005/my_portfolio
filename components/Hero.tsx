@@ -30,7 +30,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/30 to-slate-950" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="animate-fadeInUp space-y-6">
           {/* Title */}
           <div className="space-y-3">
@@ -46,8 +46,8 @@ export default function Hero() {
           </div>
 
           {/* Description */}
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Building high-throughput asynchronous backends and intelligent deep learning systems. Proficient in Python, FastAPI, Flask, C++, and PyTorch with a strong foundation in scalable distributed architectures.
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl sm:max-w-4xl mx-auto leading-relaxed">
+            {PROFILE.description}
           </p>
 
           {/* Subtitle */}

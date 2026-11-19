@@ -3,7 +3,7 @@ export const PROFILE = {
   title: "Software Developer & AI Engineer",
   subtitle: "DTU | 2027 Graduate",
   description:
-    "Building high-throughput asynchronous backends and intelligent deep learning systems. Proficient in Python, FastAPI, Flask, C++, and PyTorch with a strong foundation in scalable distributed architectures.",
+    "Software Engineer focused on building scalable, high-performance applications and solving complex engineering problems. Experienced in full-stack development, backend engineering, and AI-driven applications, with hands-on expertise in C++, JavaScript, TypeScript, Python, React, Next.js, Node.js, FastAPI, Flask, and PostgreSQL. Knowledgeable in Machine Learning, Deep Learning, and Retrieval-Augmented Generation (RAG), with a strong foundation in Data Structures & Algorithms, Object-Oriented Programming, Database Management, and System Design. Passionate about turning ideas into reliable, production-ready software through clean architecture, efficient problem-solving, and continuous innovation.",
   image: "https://avatars.githubusercontent.com/u/YOUR_GITHUB_ID",
 };
 
