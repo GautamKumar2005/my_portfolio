@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { ArrowRight, Code, FileText, Sparkles, GraduationCap, Terminal, Trophy } from "lucide-react";
-import { PROFILE, LINKS, EDUCATION } from "@/lib/constants";
+import { ArrowRight, Code, FileText } from "lucide-react";
+import { PROFILE, LINKS } from "@/lib/constants";
 
 const ParticleField = dynamic(() => import("./3d/ParticleField"), {
   ssr: false,
@@ -11,8 +11,14 @@ const ParticleField = dynamic(() => import("./3d/ParticleField"), {
 });
 
 export default function Hero() {
+  const resumeUrl =
+    process.env.DRIVE_RESUME ||
+    process.env.NEXT_PUBLIC_DRIVE_RESUME ||
+    LINKS.resume ||
+    "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link";
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Background 3D Particle Field */}
       <div className="absolute inset-0 opacity-50">
         <Suspense fallback={<div className="w-full h-full bg-gradient-to-br from-slate-900 to-slate-950" />}>
@@ -21,88 +27,57 @@ export default function Hero() {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/40 to-slate-950" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/30 to-slate-950" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="animate-fadeInUp space-y-6">
-          {/* Recruiter Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 text-xs font-semibold tracking-wide shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Open to SWE & AI Engineering Roles (2027 Graduate)
-          </div>
-
           {/* Title */}
           <div className="space-y-3">
-            <p className="text-cyan-400 text-xs sm:text-sm font-semibold tracking-widest uppercase">
-              Software Developer & AI Engineer
+            <p className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">
+              Welcome to my portfolio
             </p>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight">
-              <span className="gradient-text drop-shadow-[0_0_20px_rgba(0,212,255,0.35)]">
-                {PROFILE.name}
-              </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
+              <span className="gradient-text drop-shadow-[0_0_10px_rgba(0,212,255,0.3)]">{PROFILE.name}</span>
             </h1>
-            <p className="text-lg sm:text-2xl text-cyan-200/90 font-light max-w-3xl mx-auto">
-              Architecting high-throughput Python backends, low-latency C++ systems, and modern AI pipelines.
+            <p className="text-lg sm:text-xl lg:text-2xl text-cyan-300 font-light px-2">
+              {PROFILE.title}
             </p>
           </div>
 
           {/* Description */}
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Final-year student at <span className="text-cyan-300 font-semibold">Delhi Technological University (DTU)</span> with a passion for building robust distributed systems, production APIs (FastAPI & Flask), and competitive programming.
+          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Building high-throughput asynchronous backends and intelligent deep learning systems. Proficient in Python, FastAPI, Flask, C++, and PyTorch with a strong foundation in scalable distributed architectures.
           </p>
 
-          {/* Recruiter Quick Highlights Badges */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto pt-2">
-            <div className="glass px-3.5 py-2 rounded-xl border border-cyan-500/30 flex items-center gap-2 text-left">
-              <GraduationCap className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-              <div>
-                <p className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Education</p>
-                <p className="text-xs font-bold text-slate-100">DTU B.Tech • CGPA {EDUCATION.cgpa}</p>
-              </div>
-            </div>
-
-            <div className="glass px-3.5 py-2 rounded-xl border border-teal-500/30 flex items-center gap-2 text-left">
-              <Terminal className="w-5 h-5 text-teal-400 flex-shrink-0" />
-              <div>
-                <p className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Primary Stack</p>
-                <p className="text-xs font-bold text-slate-100">Python • FastAPI • C++</p>
-              </div>
-            </div>
-
-            <div className="glass px-3.5 py-2 rounded-xl border border-blue-500/30 flex items-center gap-2 text-left">
-              <Trophy className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <div>
-                <p className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">DSA & CP</p>
-                <p className="text-xs font-bold text-slate-100">500+ Problems Solved</p>
-              </div>
-            </div>
-          </div>
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-slate-400">
+            {PROFILE.subtitle} • Passionate about building scalable systems
+          </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3.5 justify-center pt-4 w-full max-w-lg mx-auto">
-            {/* Direct Resume Button */}
-            <a
-              href="#resume"
-              className="glass px-6 py-3 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 shadow-[0_0_20px_rgba(6,182,212,0.35)] flex items-center justify-center gap-2 transition-all active:scale-95"
-            >
-              <FileText className="w-4 h-4 text-slate-950" />
-              View Resume & CV
-            </a>
-
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 w-full max-w-md mx-auto sm:max-w-none">
             <a
               href="#projects"
-              className="glass px-6 py-3 rounded-xl font-semibold text-white hover:bg-cyan-500/20 border border-cyan-400/50 hover:border-cyan-400 flex items-center justify-center gap-2 transition-all active:scale-95"
+              className="group glass w-full sm:w-auto px-8 py-3 rounded-lg font-semibold text-white hover:bg-cyan-500/20 border border-cyan-400/50 hover:border-cyan-400 flex items-center justify-center gap-2 transition-all active:scale-95"
             >
-              Featured Projects
+              View My Work
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
-
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass w-full sm:w-auto px-8 py-3 rounded-lg font-semibold text-cyan-300 hover:text-white hover:bg-cyan-500/20 border border-cyan-400/50 hover:border-cyan-400 flex items-center justify-center gap-2 transition-all active:scale-95"
+            >
+              <FileText className="w-4 h-4" />
+              Resume
+            </a>
             <a
               href={LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass px-5 py-3 rounded-xl font-semibold text-slate-200 hover:bg-blue-500/20 border border-blue-400/40 hover:border-blue-400 flex items-center justify-center gap-2 transition-all active:scale-95"
+              className="glass w-full sm:w-auto px-8 py-3 rounded-lg font-semibold text-white hover:bg-blue-500/20 border border-blue-400/50 hover:border-blue-400 flex items-center justify-center gap-2 transition-all active:scale-95"
             >
               <Code className="w-4 h-4" />
               GitHub
@@ -110,22 +85,20 @@ export default function Hero() {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="pt-8 animate-bounce">
-            <a href="#projects" aria-label="Scroll to Featured Projects">
-              <svg
-                className="w-5 h-5 mx-auto text-cyan-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </a>
+          <div className="pt-12 animate-bounce">
+            <svg
+              className="w-6 h-6 mx-auto text-cyan-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
           </div>
         </div>
       </div>

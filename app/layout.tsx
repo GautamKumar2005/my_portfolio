@@ -1,16 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Gautam Kumar - Software Engineer & AI Enthusiast",
@@ -45,9 +34,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth h-full antialiased`}
+      className="scroll-smooth h-full antialiased font-sans"
     >
-      <body className="relative min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden">
+      <body className="relative min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden font-sans">
         {children}
       </body>
     </html>

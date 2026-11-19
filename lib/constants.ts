@@ -3,7 +3,7 @@ export const PROFILE = {
   title: "Software Developer & AI Engineer",
   subtitle: "DTU | 2027 Graduate",
   description:
-    "Passionate about building scalable applications and exploring AI/ML. Competitive programmer with a keen interest in full-stack development.",
+    "Building high-throughput asynchronous backends and intelligent deep learning systems. Proficient in Python, FastAPI, Flask, C++, and PyTorch with a strong foundation in scalable distributed architectures.",
   image: "https://avatars.githubusercontent.com/u/YOUR_GITHUB_ID",
 };
 
@@ -15,56 +15,21 @@ export const LINKS = {
   codeforces: "https://codeforces.com/profile/Galacti_",
   geeksforgeeks: "https://www.geeksforgeeks.org/profile/gautamgkdz",
   codolio: "https://codolio.com/profile/Gautam_coder2005",
-  email: process.env.NEXT_PUBLIC_EMAIL || process.env.EMAIL || "",
-  resume:
-    process.env.NEXT_PUBLIC_DRIVE_RESUME ||
-    process.env.DRIVE_RESUME ||
-    "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
-};
-
-export const RECRUITER_HIGHLIGHTS = {
-  status: "Actively Open to SWE & AI Engineering Roles (2027 Graduate)",
-  targetRoles: [
-    "Software Development Engineer (SDE)",
-    "Backend Engineer (Python / FastAPI / Node)",
-    "AI / ML Engineer",
-    "Systems & Quantitative Developer (C++)",
-  ],
-  stats: [
-    { label: "University", value: "DTU '27", detail: "Software Engineering" },
-    { label: "Academic CGPA", value: "8.53 / 10", detail: "Top tier academic record" },
-    { label: "DSA & CP Solved", value: "500+", detail: "LeetCode, Codeforces & CodeChef" },
-    { label: "Core Tech Stack", value: "Python • C++", detail: "FastAPI, Flask, Next.js, PyTorch" },
-  ],
-  keyStrengths: [
-    "Production-grade Python APIs with FastAPI & Flask, async architecture, and Pydantic validation.",
-    "High-performance systems engineering & low-level analysis in C++ (LLVM IR, PTX ISA GPU parsing).",
-    "Deep Learning and Computer Vision pipelines using PyTorch, Torchvision, and YOLOv8.",
-    "Full-stack Next.js 15+ engineering with responsive UI, Tailwind CSS, and secure RESTful design.",
-  ],
+  email: process.env.NEXT_PUBLIC_EMAIL || process.env.EMAIL || "gautam96544@gmail.com",
+  resume: process.env.DRIVE_RESUME || process.env.NEXT_PUBLIC_DRIVE_RESUME || "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
 };
 
 export const SKILLS = {
   languages: ["Python", "C++", "C", "TypeScript", "JavaScript (ES6+)", "SQL"],
-  backend: [
-    "FastAPI",
-    "Flask",
-    "Python",
-    "Node.js",
-    "Express.js",
-    "REST APIs",
-    "PostgreSQL",
-    "MongoDB",
-    "MySQL",
-    "Supabase",
-  ],
-  aiml: ["PyTorch", "TensorFlow", "Keras", "Scikit-learn", "OpenCV", "YOLOv8", "Streamlit", "FastAPI", "Flask"],
+  backend: ["FastAPI", "Flask", "Node.js", "Express.js", "REST APIs", "PostgreSQL", "MongoDB", "MySQL", "Supabase"],
+  aiml: ["PyTorch", "TensorFlow", "Keras", "Scikit-learn", "OpenCV", "YOLOv8", "NumPy", "Pandas"],
   deeplearning: [
     "Transformers",
     "CNNs",
     "RNNs",
     "LSTMs",
     "ANNs",
+    "Transfer Learning",
     "Word2Vec",
     "Gensim",
   ],
@@ -135,7 +100,7 @@ export const SOCIAL_PROFILES = [
 ];
 
 export const PROJECT_OVERRIDES: Record<string, { description: string[]; techStack: string[]; homepage?: string }> = {
-  "inspireShop": {
+  "insipreShop": {
     description: [
       "Architected a high-throughput, full-stack ecosystem integrating an e-commerce engine with a social hub, facilitating seamless, sub-100ms real-time interactions for over 1,000+ simulated concurrent users.",
       "Engineered a hybrid database architecture utilizing MongoDB for high-speed, flexible product indexing alongside Supabase (PostgreSQL) for structured authentication, reducing data redundancy by 25% and ensuring 100% data integrity.",
