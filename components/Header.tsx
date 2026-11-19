@@ -11,7 +11,6 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Skills", href: "/#skills" },
     { label: "Projects", href: "/#projects" },
     { label: "Education & CP", href: "/#experience" },
     { label: "Resume", href: "/#resume" },

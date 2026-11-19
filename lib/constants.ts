@@ -23,7 +23,7 @@ export const LINKS = {
 };
 
 export const RECRUITER_HIGHLIGHTS = {
-  status: "Actively Open to Summer 2026 / 2027 SWE & AI Engineering Roles",
+  status: "Actively Open to SWE & AI Engineering Roles (2027 Graduate)",
   targetRoles: [
     "Software Development Engineer (SDE)",
     "Backend Engineer (Python / FastAPI / Node)",

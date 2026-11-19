@@ -29,7 +29,7 @@ export default function Hero() {
           {/* Recruiter Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 text-xs font-semibold tracking-wide shadow-[0_0_15px_rgba(16,185,129,0.2)]">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Open to Summer 2026 / 2027 SWE & AI Engineering Roles
+            Open to SWE & AI Engineering Roles (2027 Graduate)
           </div>
 
           {/* Title */}
@@ -111,7 +111,7 @@ export default function Hero() {
 
           {/* Scroll Indicator */}
           <div className="pt-8 animate-bounce">
-            <a href="#skills" aria-label="Scroll to Skills">
+            <a href="#projects" aria-label="Scroll to Featured Projects">
               <svg
                 className="w-5 h-5 mx-auto text-cyan-400"
                 fill="none"

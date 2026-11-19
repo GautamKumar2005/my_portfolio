@@ -29,7 +29,6 @@ export default function Footer() {
             </h4>
             <nav className="space-y-1">
               {[
-                { label: "Skills", href: "#skills" },
                 { label: "Projects", href: "#projects" },
                 { label: "Experience", href: "#experience" },
                 { label: "Resume & CV", href: "#resume" },
