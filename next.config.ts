@@ -8,12 +8,8 @@ const nextConfig: NextConfig = {
   env: {
     DRIVE_RESUME:
       process.env.DRIVE_RESUME ||
-      process.env.NEXT_PUBLIC_DRIVE_RESUME ||
       "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
-    NEXT_PUBLIC_DRIVE_RESUME:
-      process.env.NEXT_PUBLIC_DRIVE_RESUME ||
-      process.env.DRIVE_RESUME ||
-      "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
+    EMAIL: process.env.EMAIL || "gautam96544@gmail.com",
   },
 };
 

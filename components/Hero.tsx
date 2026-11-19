@@ -13,7 +13,6 @@ const ParticleField = dynamic(() => import("./3d/ParticleField"), {
 export default function Hero() {
   const resumeUrl =
     process.env.DRIVE_RESUME ||
-    process.env.NEXT_PUBLIC_DRIVE_RESUME ||
     LINKS.resume ||
     "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link";
 

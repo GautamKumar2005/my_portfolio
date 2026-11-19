@@ -15,8 +15,8 @@ export const LINKS = {
   codeforces: "https://codeforces.com/profile/Galacti_",
   geeksforgeeks: "https://www.geeksforgeeks.org/profile/gautamgkdz",
   codolio: "https://codolio.com/profile/Gautam_coder2005",
-  email: process.env.NEXT_PUBLIC_EMAIL || process.env.EMAIL || "gautam96544@gmail.com",
-  resume: process.env.DRIVE_RESUME || process.env.NEXT_PUBLIC_DRIVE_RESUME || "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
+  email: process.env.EMAIL || "gautam96544@gmail.com",
+  resume: process.env.DRIVE_RESUME || "https://drive.google.com/file/d/1SjVhMYuKTjkjlu_6BDjNQje68FLuXc6J/view?usp=drive_link",
 };
 
 export const SKILLS = {
